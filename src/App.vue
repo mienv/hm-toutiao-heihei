@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    app <el-button type="success">成功按钮</el-button>
+    <!-- 一级路由渲染 的位置  出口-->
+   <router-view></router-view>
   </div>
 </template>
 
