@@ -53,16 +53,16 @@
         <span class="el-icon-s-fold" @click="toggleMenu()"></span>
         <span class="text">江苏传智播客科技教育有限公司</span>
         <!-- 下拉菜单 -->
-         <el-dropdown class="my-dropdown">
+         <el-dropdown class="my-dropdown" @command="clickMenu">
           <span class="el-dropdown-link">
-            <img src="../../assets/images/avatar.jpg" alt="">
-            下拉菜单
+            <img :src="photo" alt="">
+            {{name}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
             <!-- 小图标可以不写span 直接在标签上写 icon  -->
-            <el-dropdown-item icon="el-icon-setting">个人设置</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-unlock">退出登录</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-setting" command="setting" >个人设置</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-unlock" command='logout'>退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -74,17 +74,44 @@
 </template>
 
 <script>
+import store from '../../store'
 export default {
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      name: '',
+      photo: ''
     }
+  },
+  created () {
+    const user = store.getUser()
+    this.name = user.name
+    this.photo = user.photo
   },
   methods: {
     // 切换侧边栏的收起与展开
     toggleMenu () {
       this.isCollapse = !this.isCollapse
+    },
+
+    // click绑定原声的DOM事件，绑在组件上会认为自定义 事件，组件内部没有触发 就是无效事件
+    // 可以使用修饰符 prvent native 绑定原声事件
+    setting () {
+      this.$router.push('/setting')
+    },
+    logout () {
+      // 清除用户信息
+      store.clearUser()
+      // 跳转到登录
+      this.$router.push({ name: 'login' })
+    },
+    clickMenu (menuType) {
+      // this.menuType === setting.this.setting()
+      // this.menuType === logout.this.logout()
+
+      this[menuType]()
     }
+
   }
 }
 </script>
