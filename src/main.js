@@ -11,6 +11,11 @@ import '../styles/index.less'
 
 // 导入axios
 import axios from './api'
+
+import myPlugin from './components'
+Vue.use(myPlugin)
+
+// import components from './components'
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
