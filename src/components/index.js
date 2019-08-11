@@ -4,6 +4,7 @@
 
 import MyBread from './my-bread'
 import MyTest from './my-test'
+import MyChannel from './my-channel'
 
 export default {
   install (Vue) {
@@ -11,5 +12,6 @@ export default {
     // 全局注册组件
     Vue.component(MyBread.name, MyBread)
     Vue.component(MyTest.name, MyTest)
+    Vue.component(MyChannel.name, MyChannel)
   }
 }
